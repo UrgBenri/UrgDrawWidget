@@ -20,12 +20,15 @@ void TextItem::drawPoints(qreal drawSize, const QVector<QColor> &colors, const Q
 {
     if(m_widget){
         QFont font = m_widget->font();
-        font.setPointSize(12);
+        font.setPointSize(m_fontSize);
         glColor4d(m_color.redF()
                   , m_color.greenF()
                   , m_color.blueF()
                   , m_color.alphaF());
-        m_widget->renderText(m_position.x(), m_position.y(), m_text, font);
+        QFontMetrics fm(font);
+        int fontWidth = fm.width(m_text) /2;
+
+        m_widget->renderText(m_position.x() - fontWidth, m_position.y(), m_text, font);
     }
 
     glLineWidth(1);
