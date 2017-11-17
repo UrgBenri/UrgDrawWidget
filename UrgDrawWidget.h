@@ -53,7 +53,8 @@ public:
 //    bool addSqaure(QRect rect, QColor color);
 //    bool clearSquares();
 //    void convertData(QVector<QVector<long> > &output, QVector<long> &input);
-    void setUpdateRate(const QString &rate);
+    void setUpperRightMessage(const QString &rate);
+    void setLowerRightMessage(const QString &rate);
     void setSelectedStep(int step);
     void setEchoSelection(int index);
 
@@ -190,6 +191,7 @@ private:
     QPointF m_mouse_position;
 
     QString m_upperLeftMessage;
+    QString m_upperRightMessage;
     QString m_lowerRightMessage;
     QString m_lowerLeftMessage;
     QString m_mouseSticky;

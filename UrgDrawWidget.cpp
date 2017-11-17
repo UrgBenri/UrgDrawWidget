@@ -87,12 +87,16 @@ UrgDrawWidget::UrgDrawWidget(QWidget* parent):
     m_selectedStep = -1;
     m_showAxis = true;
     m_echoSelection = 0;
+    m_upperLeftMessage = "";
+    m_upperRightMessage = "";
+    m_lowerRightMessage = "";
+    m_lowerLeftMessage = "";
 
     m_rulers.setPointColor(0, QColor(Qt::blue));
     m_rulers.setPointWidth(1);
 }
 
-void UrgDrawWidget::setUpdateRate(const QString &rate)
+void UrgDrawWidget::setLowerRightMessage(const QString &rate)
 {
     m_lowerRightMessage = rate;
     redraw();
@@ -763,6 +767,12 @@ bool UrgDrawWidget::isAxisShowed()
     return m_showAxis;
 }
 
+void UrgDrawWidget::setUpperRightMessage(const QString &rate)
+{
+    m_upperRightMessage = rate;
+    redraw();
+}
+
 void UrgDrawWidget::drawAxis(void) {
     QPointF offset = drawOffset(zoomRatio());
 
@@ -984,26 +994,47 @@ void UrgDrawWidget::drawIntensity(void) {
 }
 
 void UrgDrawWidget::drawText(void) {
-    QFont font = this->font();
-    font.setPointSize(12);
-
-    QFontMetrics fm(font);
 
     if(m_upperLeftMessage.size() > 0){
+        QFont font = this->font();
+        font.setPointSize(12);
+
+        QFontMetrics fm(font);
         glColor4d(1, 0, 0, 1);
         renderText(10, fm.height() + 10, m_upperLeftMessage, font);
     }
+    if(m_upperRightMessage.size() > 0){
+        QFont font = this->font();
+        font.setPointSize(44);
+
+        QFontMetrics fm(font);
+        glColor4d(1, 0, 0, 1);
+        renderText(width() - fm.width(m_upperRightMessage) - 10,
+                   fm.height() + 10, m_upperRightMessage, font);
+    }
     if(m_lowerRightMessage.size() > 0){
+        QFont font = this->font();
+        font.setPointSize(12);
+
+        QFontMetrics fm(font);
         glColor4d(1, 0, 1, 1);
         renderText(width() - fm.width(m_lowerRightMessage) - 10 ,
                    height() - fm.height(), m_lowerRightMessage, font);
     }
     if(m_lowerLeftMessage.size() > 0){
+        QFont font = this->font();
+        font.setPointSize(12);
+
+        QFontMetrics fm(font);
         glColor4d(0, 0, 1, 1);
         renderText(10 , height() - fm.height(), m_lowerLeftMessage, font);
     }
 
     if(m_mouseSticky.size() > 0){
+        QFont font = this->font();
+        font.setPointSize(12);
+
+        QFontMetrics fm(font);
         glColor4d(0, 0, 0, 1);
         renderText(m_mouse_position.x(), m_mouse_position.y() +32, m_mouseSticky, font);
     }
