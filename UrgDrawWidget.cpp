@@ -1008,7 +1008,7 @@ void UrgDrawWidget::drawText(void) {
         font.setPointSize(44);
 
         QFontMetrics fm(font);
-        glColor4d(1, 0, 0, 1);
+        glColor4d(0, 0, 1, 1);
         renderText(width() - fm.width(m_upperRightMessage) - 10,
                    fm.height() + 10, m_upperRightMessage, font);
     }
